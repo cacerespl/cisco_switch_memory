@@ -15,6 +15,9 @@ import smtplib
 #IP of the switch is passed as an argument
 switch_ip = sys.argv[1]
 
+#You can set the threshold with a value between 10 to 15% of the total memory
+THRESHOLD = 250000
+
 HOST = email_server
 SUBJECT = "Memory status"
 TO = "receiver_account"
@@ -45,7 +48,7 @@ output = ssh_conn.recv(10000)
 z = output.split("\n")[3].split(",")[2].split(" ")[1]
 memory = int(z.replace("K",""))
 
-if memory < threshold:
+if memory < THRESHOLD:
     print 'low memory'
     text = "Memory is low\n"+"The memory is: " + str(memory)
     ssh_conn.send("\n")
